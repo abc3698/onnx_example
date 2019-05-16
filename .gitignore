@@ -1,0 +1,8 @@
+
+*.db
+*.opendb
+*.jpg
+*.PNG
+*.onnx
+*.dll
+*.lib
