@@ -19,6 +19,6 @@ public:
 	void PrintInputNode();
 	void SetInputOutputSet();
 	void GetOutput(std::vector<float> &input_tensor, const int clsNum, const int batchNum);
-	std::vector<float>  Mat2Vec(cv::Mat &img, bool isColor = true);
+	std::vector<float>  Mat2Vec(cv::Mat &img, bool isColor = true, bool isPytorch = false);
 };
 

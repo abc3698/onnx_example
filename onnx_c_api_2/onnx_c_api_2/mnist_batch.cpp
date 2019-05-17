@@ -10,8 +10,8 @@ void main()
 	cv::resize(img, img, cv::Size(28, 28));
 	cv::resize(img2, img2, cv::Size(28, 28));
 
-	std::vector<float> input_tensor_values = model.Mat2Vec(img);
-	std::vector<float> input_tensor_values2 = model.Mat2Vec(img2);
+	std::vector<float> input_tensor_values = model.Mat2Vec(img, false);
+	std::vector<float> input_tensor_values2 = model.Mat2Vec(img2, false);
 
 	input_tensor_values.insert(input_tensor_values.end(), input_tensor_values2.begin(), input_tensor_values2.end());
 	std::cout << input_tensor_values .size() << std::endl;

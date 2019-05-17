@@ -6,3 +6,5 @@
 *.onnx
 *.dll
 *.lib
+*.7z
+*.bak

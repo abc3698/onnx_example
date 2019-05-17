@@ -13,6 +13,8 @@ Infer::Infer(bool isGPU, const wchar_t * model_path, int deviceID)
 	session_options.SetGraphOptimizationLevel(1);
 	
 	session = std::shared_ptr<Ort::Session>(new Ort::Session(*env, model_path, session_options));	
+
+	std::cout << "Model Read Success" << std::endl;
 }
 
 void Infer::SetInputOutputSet()
@@ -90,10 +92,11 @@ void Infer::GetOutput(std::vector<float>& input_tensor_values, const int clsNum,
 	
 	for (int batch = 0; batch < batchNum; ++batch)
 	{
-		double max = 0.0;
+		double max = -DBL_MAX;
+		std::cout << max << std::endl;
 		int idx;
 		for (int i = 0; i < clsNum; ++i)
-		{						
+		{									
 			if (floatarr[i + (batch * clsNum)] > max)
 			{
 				max = floatarr[i + (batch * clsNum)];
@@ -105,7 +108,7 @@ void Infer::GetOutput(std::vector<float>& input_tensor_values, const int clsNum,
 	}	
 }
 
-std::vector<float> Infer::Mat2Vec(cv::Mat & img, bool isColor)
+std::vector<float> Infer::Mat2Vec(cv::Mat & img, bool isColor, bool isPytorch)
 {
 	cv::Mat img_float;
 	int channel = (isColor) ? 3 : 1;
@@ -119,6 +122,9 @@ std::vector<float> Infer::Mat2Vec(cv::Mat & img, bool isColor)
 	}
 	
 	img_float /= 255.;
+
+	if(isPytorch && isColor)
+		img_float.reshape(channel, img_float.cols * img_float.rows);
 
 	std::vector<float> input_tensor_values;
 	if (img_float.isContinuous()) {

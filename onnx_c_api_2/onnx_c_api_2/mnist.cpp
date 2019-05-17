@@ -8,11 +8,11 @@ void main()
 
 	cv::resize(img, img, cv::Size(28, 28));	
 
-	std::vector<float> input_tensor_values = model.Mat2Vec(img);
+	std::vector<float> input_tensor_values = model.Mat2Vec(img, false);
 	
 	model.PrintInputNode();
 
-	/*model.SetInputOutputSet();	
+	model.SetInputOutputSet();	
 
-	model.GetOutput(input_tensor_values, 10);	*/
+	model.GetOutput(input_tensor_values, 10, 1);	
 }
